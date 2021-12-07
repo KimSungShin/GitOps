@@ -42,9 +42,11 @@ pipeline {
  
     
     stage('Push Image to Container Registry') {
-      sh '''
-      docker push ibks-platform-cr.ncr.gov-ntruss.com/short-url-gitops:demo
-      '''
+      steps {
+        sh '''
+        docker push ibks-platform-cr.ncr.gov-ntruss.com/short-url-gitops:demo
+        '''
+      }
     }
     
     stage('send diff') {
