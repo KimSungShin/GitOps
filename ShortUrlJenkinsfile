@@ -30,12 +30,16 @@ pipeline {
         '''
       }
     }
-    
-    withCredentials([string(credentialsId: 'IBKS_CR_PASSWORD', variable: 'PASSWORD')]) {
-      sh '''
-      docker login -u 79C1C5DC346CDBB50C97 -p $PASSWORD
-      '''
+    stage('Docker Login'){
+      steps {
+        withCredentials([string(credentialsId: 'IBKS_CR_PASSWORD', variable: 'PASSWORD')]) {
+          sh '''
+          docker login -u 79C1C5DC346CDBB50C97 -p $PASSWORD
+          '''
+        }
+      }
     }
+ 
     
     stage('Push Image to Container Registry') {
       sh '''
