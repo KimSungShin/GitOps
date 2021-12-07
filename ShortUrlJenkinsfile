@@ -10,7 +10,7 @@ pipeline {
     stage('git pull') {
       steps {
         // Git-URL will replace by sed command before RUN
-        git credentialsId: 'KimSungShinGithub',url: 'https://github.com/KimSungShin/short-url-gitops', branch: 'main'
+        git credentialsId: 'GITHUB_CREDENTIALS',url: 'https://github.com/KimSungShin/short-url-gitops', branch: 'main'
       }
     }
     stage('gradle build'){
