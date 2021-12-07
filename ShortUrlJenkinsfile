@@ -15,12 +15,14 @@ pipeline {
     }
     stage('gradle build'){
       steps {
-        sh './gradlew build'
+        sh '''
+        ./gradlew build
+        '''
       }
     }
     stage('Docker Build'){
       steps {
-        sh'''
+        sh '''
         docker version
         docker build -t short-url-gitops .
         docker image list
@@ -30,11 +32,15 @@ pipeline {
     }
     
     withCredentials([string(credentialsId: 'IBKS_CR_PASSWORD', variable: 'PASSWORD')]) {
-      sh 'docker login -u 79C1C5DC346CDBB50C97 -p $PASSWORD'
+      sh '''
+      docker login -u 79C1C5DC346CDBB50C97 -p $PASSWORD
+      '''
     }
     
     stage('Push Image to Container Registry') {
-      sh 'docker push ibks-platform-cr.ncr.gov-ntruss.com/short-url-gitops:demo'
+      sh '''
+      docker push ibks-platform-cr.ncr.gov-ntruss.com/short-url-gitops:demo
+      '''
     }
     
     stage('send diff') {
